@@ -22,6 +22,26 @@ div
     img.footer-img(src="@/assets/images/Logo.svg")
 </template>
 
+<script>
+export default {
+  name: "App",
+  data() {
+    return {
+      random: Math.round(Math.random() * 2000),
+    };
+  },
+  async created() {
+    try {
+      await this.$store.dispatch("halarComic", {
+        id: this.random,
+      });
+    } catch (err) {
+      throw new Error("Error en App.vue: " + err);
+    }
+  },
+};
+</script>
+
 <style lang="stylus">
 
 .header
@@ -31,26 +51,40 @@ div
   height: 25%
   align-items: center
   justify-content: center
+  padding 10px
+  @media screen and (min-width: 768px)
+    flex-direction row
+    gap 10px
   &-social
     width 50%
+    height  100px
     display grid
+    place-content stretch
+    @media screen and (min-width: 768px) and (max-width: 1020px)
+      width 70%
+    @media screen and (min-width 1024px)
+      justify-content left
+      p
     &-list
       padding 0
       display: grid
       grid-template-columns: repeat(4, 1fr)
-      justify-items: center
+      place-items center
+      place-content stretch
+      gap 10px
     &-item
       list-style none
       width 30px
       height 30px
-      padding 10px
       display: grid
-      place-items: center
+      place-content stretch
+      place-items center
       &:hover
         border-radius 100%
         cursor pointer
-        box-shadow: 2px 2px 6px 0 Nosferatus  
+        box-shadow: 2px 2px 6px 0 Nosferatus
         background-color: Dracula
+
   &-random
     width 100%
     display: flex
@@ -67,22 +101,25 @@ div
       place-items: center
       font-weight bold
       cursor pointer
+      @media screen and (min-width: 768px) and (max-width: 1020px)
+        width 80%
       &:hover
         background-color Cullen
         border 1px solid Marcelin
         color Nosferatus
 .header-icon
   width 32px
+  margin 10px
   background-color transparent
   &:hover
     color Cullen
 main
-  min-height: 75vh
   display: grid
   width 100%
   max-height: max-content
   background-color Aro
-
+  @media screen and (min-width 760px)
+    min-height: 75vh
 .footer
   width 100%
   height 10vh
@@ -92,4 +129,8 @@ main
   &-img
     width 100px
     box-shadow: 0px 0px 10px 0 Cullen
+    @media screen and (min-width 760px) and (max-width 1024)
+      width 200px
+    @media screen and (min-width 1024px)
+      width 250px
 </style>

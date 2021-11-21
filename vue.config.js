@@ -1,10 +1,10 @@
-var path = require('path')
+var path = require("path");
 module.exports = {
-  css:{
+  css: {
     loaderOptions: {
       stylus: {
-        import: [path.resolve("src/assets/styles/estilos.styl")]
-      }
-    }
-  }
-}
+        import: [path.resolve("src/assets/styles/estilos.styl")],
+      },
+    },
+  },
+};
