@@ -7,10 +7,21 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     comic: "",
+    loader: false,
+    rating: [
+      { value: 1, select: false },
+      { value: 2, select: false },
+      { value: 3, select: false },
+      { value: 4, select: false },
+      { value: 5, select: false },
+    ],
   },
   mutations: {
     addComic(state, payload) {
       state.comic = payload;
+    },
+    loader(state) {
+      state.loader = !state.loader;
     },
   },
   actions: {

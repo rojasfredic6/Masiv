@@ -15,29 +15,49 @@ div
         li.header-social-item
           v-icon.header-icon(name="github")
     .header-random
-      .header-random-button Random Comic
+      .header-random-button(@click="newRandom") Random Comic
   main
-    router-view
+    router-view(ref="child")
   footer.footer
     img.footer-img(src="@/assets/images/Logo.svg")
 </template>
 
 <script>
+import { comicCount } from "./api/api";
+
 export default {
   name: "App",
   data() {
     return {
-      random: Math.round(Math.random() * 2000),
+      random: "",
     };
   },
   async created() {
     try {
+      this.$store.commit("loader");
+      let random = await comicCount();
       await this.$store.dispatch("halarComic", {
-        id: this.random,
+        id: Math.round(Math.random() * random.data.num),
       });
+      this.$store.commit("loader");
     } catch (err) {
       throw new Error("Error en App.vue: " + err);
     }
+  },
+  methods: {
+    async newRandom() {
+      try {
+        this.$store.commit("loader");
+        let random = await comicCount();
+        await this.$store.dispatch("halarComic", {
+          id: Math.round(Math.random() * random.data.num),
+        });
+        this.$refs.child.reset();
+        this.$store.commit("loader");
+      } catch (err) {
+        throw new Error("Error en App.vue: " + err);
+      }
+    },
   },
 };
 </script>
@@ -74,11 +94,11 @@ export default {
       gap 10px
     &-item
       list-style none
-      width 30px
-      height 30px
+      width 45px
+      height 45px
       display: grid
       place-content stretch
-      place-items center
+      place-items stretch
       &:hover
         border-radius 100%
         cursor pointer
@@ -115,11 +135,12 @@ export default {
     color Cullen
 main
   display: grid
+  min-height: 75vh
   width 100%
   max-height: max-content
   background-color Aro
   @media screen and (min-width 760px)
-    min-height: 75vh
+    max-height max-content
 .footer
   width 100%
   height 10vh

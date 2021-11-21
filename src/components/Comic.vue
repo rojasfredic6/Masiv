@@ -1,13 +1,12 @@
 <template lang="pug">
 div.component
   figure.component-figure
-    img.component-image(:src="data.img")
-    div.component-info
-      p Info
+    loading-vue(v-if="loader")
+    img.component-image(:src="data.img", v-else)
   .component-rating
     ul.component-rating-list
-      li.component-rating-item(v-for="(s,index) in stars" :key="s.value")
-        v-icon.star(name="star", :id="'star-'+s.value")
+      li.component-rating-item(v-for="(s,index) in stars" :key="s.value", @click="valorar(index)")
+        v-icon.star(name="star", :id="'star-'+s.value", :class="s.select === true ? 'selected-star' : ''")
       //- li.component-rating-item
       //-   v-icon.star(name="star")
       //- li.component-rating-item
@@ -19,25 +18,43 @@ div.component
 </template>
 
 <script>
+import LoadingVue from "./Loading.vue";
+
 export default {
   name: "Comic",
-  props:{
-    data: Object || String
+  components: {
+    LoadingVue,
   },
-  data(){
+  props: {
+    data: {},
+  },
+  data() {
     return {
       stars: [
-        { value: 1 },
-        { value: 2 },
-        { value: 3 },
-        { value: 4 },
-        { value: 5 }
-      ]
-    }
+        { value: 1, select: false },
+        { value: 2, select: false },
+        { value: 3, select: false },
+        { value: 4, select: false },
+        { value: 5, select: false },
+      ],
+    };
   },
-  method:{
-
-  }
+  computed: {
+    loader() {
+      return this.$store.state.loader;
+    },
+  },
+  methods: {
+    valorar(id) {
+      this.stars.map((item) => (item.select = false));
+      for (let i = 0; i <= id; i++) {
+        this.stars[i].select = true;
+      }
+    },
+    reset() {
+      this.stars.map((item) => (item.select = false));
+    },
+  },
 };
 </script>
 
@@ -58,15 +75,7 @@ export default {
     width 80%
     height auto
     @media screen and (min-width 1024px)
-      width 25%
-  &-info
-    border 1px solid Cullen
-    position absolute
-    z-index 5
-    width 75%
-    height 96%
-    @media screen and (min-width 1024px)
-      width 24%
+      width 50%
   &-rating
     width: 100%
     display grid

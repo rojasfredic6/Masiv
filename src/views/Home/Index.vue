@@ -1,7 +1,7 @@
 <template lang="pug">
 div.home
   h2.home-title {{comicData.safe_title}}
-  comic(:data="comicData")
+  comic(:data="comicData", ref="comicComponent")
 </template>
 
 <script>
@@ -12,11 +12,16 @@ export default {
   components: {
     Comic,
   },
-  computed:{
-    comicData(){
-      return this.$store.state.comic
-    }
-  }
+  computed: {
+    comicData() {
+      return this.$store.state.comic;
+    },
+  },
+  methods: {
+    reset() {
+      this.$refs.comicComponent.reset();
+    },
+  },
 };
 </script>
 

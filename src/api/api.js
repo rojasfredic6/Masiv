@@ -2,9 +2,13 @@ import trae from "trae";
 
 const getComic = (data) => {
   const { id } = data;
-  return trae.post("http://localhost:1337/comics", {
+  return trae.post("https://agile-shore-94623.herokuapp.com/comics", {
     id,
   });
 };
 
-export { getComic };
+const comicCount = () => {
+  return trae.get("https://agile-shore-94623.herokuapp.com/comicscount");
+};
+
+export { getComic, comicCount };
