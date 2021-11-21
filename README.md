@@ -1,29 +1,34 @@
-# masiv2
+# Masiv - Tecnical Test
+#### Prueba tecnica FrontEnd desarrollada con Javascript, Vue, Vuex, Stylus. 
 
-## Project setup
+## Clonar repositorio
+```
+git clone https://github.com/rojasfredic6/Masiv.git
+cd Masiv
+```
+## Instalar dependencias
 ```
 yarn install
+npm run install
 ```
 
-### Compiles and hot-reloads for development
+## Compilar e iniciar servidor local
 ```
 yarn serve
+npm run serve
 ```
 
-### Compiles and minifies for production
+## Compilar para produccion
 ```
 yarn build
+npm run build
 ```
 
-### Run your unit tests
-```
-yarn test:unit
-```
-
-### Lints and fixes files
+## Para Indentacion
 ```
 yarn lint
+npm run lint
 ```
 
-### Customize configuration
+### Para 
 See [Configuration Reference](https://cli.vuejs.org/config/).
